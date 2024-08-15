@@ -7,7 +7,7 @@ if (process.env.NODE_EMV != "production") {
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js")
+// const Listing = require("./models/listing.js")
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -99,7 +99,7 @@ app.all("*", (req, res, next) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Somthing went wrong!" } = err;
-    res.status(statusCode).render("listings/error.ejs", { message })
+    res.status(statusCode).render("error.ejs", { message })
 });
 
 app.listen(6969, () => {
