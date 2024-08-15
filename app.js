@@ -1,18 +1,20 @@
 
 
-if (process.env.NODE_EW != "production") {
+if (process.env.NODE_EMV != "production") {
     require('dotenv').config();
 }
 
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const Listing = require("./models/listing.js")
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
+
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -96,8 +98,8 @@ app.all("*", (req, res, next) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    const { statusCode = 500, message = "Something Went Wrong!" } = err;
-    res.status(statusCode).render("error.ejs", { message });
+    let { statusCode = 500, message = "Somthing went wrong!" } = err;
+    res.status(statusCode).render("listings/error.ejs", { message })
 });
 
 app.listen(6969, () => {
