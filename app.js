@@ -1,24 +1,22 @@
-if (process.env.NODE_ENV != "production") {
+
+
+if (process.env.NODE_EW != "production") {
     require('dotenv').config();
 }
 
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
-
-
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/user.js");
-
 
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
@@ -26,6 +24,7 @@ const userRouter = require("./routes/user.js");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dbUrl = process.env.ATLASDB_URL;
+
 
 main()
     .then(() => {
@@ -54,7 +53,7 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 });
 
-store.on("error", (err) => {
+store.on("error", () => {
     console.log("ERROR in MONGO session store", err);
 });
 
@@ -70,10 +69,6 @@ const sessionOptions = {
     },
 };
 
-// // Add a route for the root path
-// app.get("/", (req, res) => {
-//     res.render("home"); // Assuming you have a "home.ejs" file in your "views" directory
-// });
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -91,7 +86,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
@@ -102,12 +96,10 @@ app.all("*", (req, res, next) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    let { statusCode = 500, message = "Something Went Wrong!" } = err;
-    res.status(statusCode).render("listings/error.ejs", { message });
+    const { statusCode = 500, message = "Something Went Wrong!" } = err;
+    res.status(statusCode).render("error.ejs", { message });
 });
 
 app.listen(6969, () => {
     console.log("Server is listening on port 6969");
 });
-
-
