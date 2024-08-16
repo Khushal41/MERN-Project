@@ -5,45 +5,25 @@ if (process.env.NODE_ENV != "production") {
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+// const Listing = require("./models/listing.js")
 const path = require("path");
-const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-
-const dbUrl = process.env.ATLASDB_URL;
-
+const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const MongoStore = require('connect-mongo');
+
+const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models/user.js");
+
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
-const flash = require("connect-flash");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const User = require("./models/user.js");
 
-// const express = require("express");
-// const app = express();
-// const mongoose = require("mongoose");
-// // const Listing = require("./models/listing.js")
-// const path = require("path");
-// const ejsMate = require("ejs-mate");
-// const methodOverride = require("method-override");
-// const ExpressError = require("./utils/ExpressError.js");
-// const session = require("express-session");
-// const MongoStore = require('connect-mongo');
-
-// const flash = require("connect-flash");
-// const passport = require("passport");
-// const LocalStrategy = require("passport-local").Strategy;
-// const User = require("./models/user.js");
-
-// const listingsRouter = require("./routes/listing.js");
-// const reviewsRouter = require("./routes/review.js");
-// const userRouter = require("./routes/user.js");
-
-// // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
-// const dbUrl = process.env.ATLASDB_URL;
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL;
 
 
 main()
