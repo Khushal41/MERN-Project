@@ -68,7 +68,7 @@ const sessionOptions = {
 };
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "homepage.html"));
+    res.sendFile(path.join(__dirname, "public"));
 });
 
 
