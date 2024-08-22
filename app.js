@@ -1,4 +1,4 @@
-if (process.env.NODE_EW != "production") {
+if (process.env.NODE_ENV != "production") {
     require('dotenv').config();
 }
 
@@ -103,6 +103,6 @@ app.use((err, req, res, next) => {
     next();
 });
 
-app.listen(6969, () => {
+app.listen(8080, () => {
     console.log("Server is listening on port 6969");
 });
