@@ -97,12 +97,25 @@ app.all("*", (req, res, next) => {
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-    const { statusCode = 500, message = "Something Went Wrong!" } = err;
-    res.status(statusCode).render("error.ejs", { message });
+// app.use((err, req, res, next) => {
+//     const { statusCode = 500, message = "Something Went Wrong!" } = err;
+//     res.status(statusCode).render("error.ejs", { message });
+//     next();
+// });
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
+
+    console.log("Success:", res.locals.success);
+    console.log("Error:", res.locals.error);
+    console.log("Current User:", res.locals.currUser);
+
     next();
 });
 
-app.listen(8080, () => {
-    console.log("Server is listening on port 8080");
+app.listen(6969, () => {
+    console.log("Server is listening on port 6969");
 });
+
